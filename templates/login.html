@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.min.css?_v=20220618202108">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;700&family=Montserrat:wght@700&display=swap&_v=20220618202108"
+        rel="stylesheet">
+    <title>Войти в Биржу сотрудников</title>
+</head>
+
+<body>
+    <main>
+        <div class="login">
+            <div class="login__container">
+                <div class="login__content">
+                    <h1 class="login__title">Биржа сотрудников</h1>
+                    <div class="login__subtitle">Наша биржа позволит вам найти людей тех профессий и направлений,
+                        которые вам не обходимы в несколько кликов. Быстро и просто!</div>
+                    <form class="login__form" action="login" method="post">
+                        <!-- инпут логина -->
+                        <input type="text" class="login__log" name="login" placeholder="Введите Логин" required>
+                        <!-- инпут пароля -->
+                        <input type="password" class="login__pas" name="password" placeholder="Введите Пароль" required>
+                        <!-- кнопка войти -->
+                        <button class="login__button">Войти</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/js/app.min.js?_v=20220618202108"></script>
+</body>
+
+</html>

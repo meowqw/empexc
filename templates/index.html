@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.min.css?_v=20220618202108">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;700&family=Montserrat:wght@700&display=swap&_v=20220618202108"
+        rel="stylesheet">
+    <title>Биржа сотрудников</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- хидер -->
+        <header class="header">
+            <div class="header__container">
+                <div class="header__top">
+                    <!-- кнопк входа как администратор -->
+                    {% if auth == None %}
+                        <a href="{{ '/login' }}">Войти как администратор</a>
+                    {% endif %}
+                    <!-- кнопка "добавить резюме" в хидере -->
+                    <!-- <a href="#popup-add-resume" class="popup-link">Добавить резюме</a> -->
+                </div>
+                <div class="header__main header-main">
+                    <div class="header-main__container">
+                        <h1 class="header__logo">Биржа сотрудников</h1>
+                        <div class="header__search">
+                            <!-- поиск -->
+                            <form action="">
+                                <!-- инпут поиска -->
+                                <input type="search" id="searchInput" placeholder="Поиск">
+                                <!-- кнопка поиска -->
+                                <button id="searchBtn">Найти</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    .header__menu-item:hover {
+                        cursor: pointer;
+                    }
+                </style>
+                <div class="header__bottom">
+                    <div class="header__menu">
+                        <div class="header__menu-title">Профессии</div>
+                        <!-- меню профессий -->
+                        <div class="header__menu-items">
+                            {% for k, v in professions.items() %}
+                            <a class="header__menu-item" onclick="getResumeProf('{{k}}')">{{ v }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="main">
+            <!-- основной блок -->
+            <section class="resume">
+                <div class="resume__container">
+                    <h2 class="resume__title">Резюме</h2>
+                    <div class="resume__content" id="resumeList">
+                        <!-- кнопка "добавить резюме" -->
+                        <!-- <a href="#popup-add-resume" class="button resume__item item-resume__add popup-link">
+                            <div class="item-resume__add-icon">+</div>
+                            <div class="item-resume__add-text">добавить резюме</div>
+                        </a> -->
+                        <!-- итем резюме -->
+                        <!-- <a href="#popup-resume" class="resume__item button popup-link">
+                            <div class="resume__item-name">Иван Иванов</div>
+                            <div class="resume__item-prof">Сварщик</div>
+                        </a> -->
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- попап резюме -->
+        <div id="popup-resume" class="popup">
+            <div class="popup__body">
+                <div class="popup__content">
+                    <div class="popup__header">
+                        <div class="popup__title">Резюме</div>
+                        <div class="popup__subtitle"><span id="RFfname">Иван</span></div>
+                        <a href="#" class="popup__close close-popup">&times;</a>
+                    </div>
+                    <div class="popup__main">
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__name">Имя:</div>
+                            <div class="popup-item__value" id="Rfname">Иван</div>
+                        </div>
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__name">Фамилия:</div>
+                            <div class="popup-item__value" id="Rmname">Иванов</div>
+                        </div>
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__name">Отчество:</div>
+                            <div class="popup-item__value" id="Rlname">Иванович</div>
+                        </div>
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__name">Город проживания:</div>
+                            <div class="popup-item__value" id="Rcity">Барнаул</div>
+                        </div>
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__name">Дата рождения:</div>
+                            <div class="popup-item__value" id="Rdate">25.01.2000</div>
+                        </div>
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__name">Профессия:</div>
+                            <div class="popup-item__value" id="Rprofession">Дизайнер</div>
+                        </div>
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__name">Ключевые навыки:</div>
+                            <div class="popup-item__value" id="Rskills">Навык, Навык, Навык, Навык</div>
+                        </div>
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__name">Телефон:</div>
+                            <div class="popup-item__value" id="Rphone"><a href="tel:89999999999">8 999 999 99 99</a>
+                            </div>
+                        </div>
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__name">Email:</div>
+                            <div class="popup-item__value" id="Remail"><a href="mailto:mail@mail.com">mail@mail.com</a>
+                            </div>
+                        </div>
+                        <!---->
+                        <div class="popup__item popup-item">
+                            <div class="popup-item__value"><span class="popup-item__name">Описание:</span><span
+                                    id="Rinfo"> It is a long
+                                    established fact that a reader
+                                    will be distracted by the readable content of a page
+                                    when looking at its layout. The point of using Lorem
+                                    Ipsum is that it has a more-or-less normal distribution
+                                    of letters, as opposed to using 'Content here, conte
+                                    nt here', making it look like readable English. </span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="popup__bottom" id="btnResumeDel">
+                        <!-- кнопка удаления -->
+                        
+                        <button class="popup__button button-del">Удалить резюме</button>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- попап добавления резюме -->
+        <div id="popup-add-resume" class="popup">
+            <div class="popup__body">
+                <div class="popup__content">
+                    <div class="popup__header">
+                        <div class="popup__title">Добавить резюме</div>
+                        <a href="#" class="popup__close close-popup">&times;</a>
+                    </div>
+                    <div class="popup__main">
+                        <form id="popup__form" class="popup__form">
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <input type="text" placeholder="Введите Имя*" required id="fname">
+                            </div>
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <input type="text" placeholder="Введите Фамилию*" required id="mname">
+                            </div>
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <input type="text" placeholder="Введите Отчество" required id="lname">
+                            </div>
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <input type="text" placeholder="Введите Город проживания*" required id="city">
+                            </div>
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <input type="date" placeholder="Введите дату рождения" id="date">
+                            </div>
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <input type="text" placeholder="Введите Профессию*" required list=professions
+                                    id="profession">
+                                <datalist id=professions>
+                                    {% for k, v in professions.items() %}
+                                    <option> {{ v }}
+                                        {% endfor %}
+                                </datalist>
+                            </div>
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <input type="text" placeholder="Введите Ключевые навыки через запятую*" required
+                                    id="skills">
+                            </div>
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <input type="tel" placeholder="Введите Номер телефона*" required id="phone">
+                            </div>
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <input type="email" placeholder="Введите Email*" required id="email">
+                            </div>
+                            <!---->
+                            <div class="popup__item popup-item-add">
+                                <textarea type="text" placeholder="О себе" id="info"></textarea>
+                            </div>
+                            <!---->
+                        </form>
+                    </div>
+                    <div class="popup__bottom popup-bottom__add">
+                        <!-- кнопка сохранения -->
+                        
+                            <button form="popup__form" class="popup__button" id="saveResume">Сохранить</button>
+                        
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/static/js/script.js"></script>
+<script src="/static/js/app.min.js?_v=20220618202108"></script>
+
+</html>
