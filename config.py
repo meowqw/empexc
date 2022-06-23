@@ -2,5 +2,5 @@
 host = 'localhost'
 port = 3306
 user = 'user'
-password = '2110'
+password = 'Neet2001'
 db = 'empexc'
